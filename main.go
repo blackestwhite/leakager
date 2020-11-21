@@ -30,16 +30,26 @@ func main() {
 		var user User
 		err := json.Unmarshal(data, &user)
 		if err != nil {
-			fmt.Println("err",line)
+			fmt.Println("err", line)
 			fmt.Println(err)
-			continue;
+			continue
 		}
 		if user.Username != "" {
 			sum := 0
 			for _, v := range user.Username {
 				sum += int(v)
 			}
-			println(sum % 10)
+			where := fmt.Sprintf("./username/%v.txt", sum%10)
+			f, err := os.OpenFile(where,
+				os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+			if err != nil {
+				log.Println(err)
+			}
+			toWrite := fmt.Sprintf("%s\n", raw)
+			if _, err := f.WriteString(toWrite); err != nil {
+				log.Println(err)
+			}
+			f.Close()
 		}
 
 	}
