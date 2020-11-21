@@ -34,24 +34,25 @@ func main() {
 			fmt.Println(err)
 			continue
 		}
+
+		where := fmt.Sprintf("./chat_id/%v.txt", user.ChatId%10)
+		f, err := os.OpenFile(where,
+			os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+		if err != nil {
+			log.Println(err)
+		}
+		toWrite := fmt.Sprintf("%s\n", raw)
+		if _, err := f.WriteString(toWrite); err != nil {
+			log.Println(err)
+		}
+		f.Close()
+
 		if user.Username != "" {
 			sum := 0
 			for _, v := range user.Username {
 				sum += int(v)
 			}
 			where := fmt.Sprintf("./username/%v.txt", sum%10)
-			f, err := os.OpenFile(where,
-				os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-			if err != nil {
-				log.Println(err)
-			}
-			toWrite := fmt.Sprintf("%s\n", raw)
-			if _, err := f.WriteString(toWrite); err != nil {
-				log.Println(err)
-			}
-			f.Close()
-		} else {
-			where := fmt.Sprintf("./chat_id/%v.txt", user.ChatId%10)
 			f, err := os.OpenFile(where,
 				os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 			if err != nil {
