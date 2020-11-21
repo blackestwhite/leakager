@@ -31,7 +31,7 @@ func main() {
 		err := json.Unmarshal(data, &user)
 		if err != nil {
 			fmt.Println("err",line)
-			panic(err)
+			fmt.Println(err)
 			continue;
 		}
 		if user.Username != "" {
