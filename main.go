@@ -35,7 +35,7 @@ func main() {
 			continue
 		}
 
-		where := fmt.Sprintf("./chat_id/%v.txt", user.ChatId%10)
+		where := fmt.Sprintf("./chat_id/%v.txt", user.ChatId%100)
 		f, err := os.OpenFile(where,
 			os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 		if err != nil {
@@ -52,7 +52,7 @@ func main() {
 			for _, v := range user.Username {
 				sum += int(v)
 			}
-			where := fmt.Sprintf("./username/%v.txt", sum%10)
+			where := fmt.Sprintf("./username/%v.txt", sum%100)
 			f, err := os.OpenFile(where,
 				os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 			if err != nil {
